@@ -1,0 +1,108 @@
+1
+00:00:00,000 --> 00:00:06,800
+It's true. I've got a 12 core 3900X at home, and honestly, I don't use all those cores most of the time.
+
+2
+00:00:07,180 --> 00:00:13,440
+If I didn't dabble with running multiple virtual machines, I'd be just as well off with an 8 core or even a 6 core CPU,
+
+3
+00:00:13,680 --> 00:00:15,480
+especially if all I wanted to do was game.
+
+4
+00:00:16,080 --> 00:00:19,540
+In fact, 6 cores is what I went with for my VR rig.
+
+5
+00:00:19,840 --> 00:00:23,680
+Sure, there's stuff like compiling code and non-GPU rendering,
+
+6
+00:00:23,680 --> 00:00:28,080
+but the reality is that anybody serious enough about coding or graphics to be looking at a Threadripper
+
+7
+00:00:28,080 --> 00:00:34,960
+would probably also be looking at a separate build or render box so their workstation isn't unusable while the job's being done.
+
+8
+00:00:35,280 --> 00:00:42,500
+If, say, I ran a Plex instance, a personal web server, and maybe mess around with a Windows or Mac OS virtual machine,
+
+9
+00:00:42,580 --> 00:00:47,360
+that'd be roughly half my dozen cores, and I'd probably be more pressured on memory and storage at that point.
+
+10
+00:00:47,820 --> 00:00:51,780
+Now, would I complain if I had 16 cores to play with?
+
+11
+00:00:52,480 --> 00:00:52,880
+No.
+
+12
+00:00:53,840 --> 00:00:57,540
+But I don't need them either. I don't even need what I have now.
+
+13
+00:00:58,080 --> 00:01:04,760
+By the time I do, pricing for those extra cores, not to mention platform features like PCI Express Gen 5 and DDR5,
+
+14
+00:01:04,840 --> 00:01:07,720
+will come down and it'll all be more mature to boot.
+
+15
+00:01:08,040 --> 00:01:11,720
+The only times I've personally gone for, like, the top-end consumer processors
+
+16
+00:01:11,720 --> 00:01:16,400
+were the Core i7-3770K I got with Intel Retail Edge on the cheap,
+
+17
+00:01:16,400 --> 00:01:22,680
+and the Core i7-6700K near the tail end of the quad-core-is-all-you-need years,
+
+18
+00:01:22,680 --> 00:01:24,920
+so I'd have the extra threads to work with.
+
+19
+00:01:25,540 --> 00:01:30,640
+And that's just me comparing my 12 cores to 16, let alone Threadripper with up to 64.
+
+20
+00:01:31,120 --> 00:01:36,400
+Now, you could argue that Threadripper would stay relevant for way longer than any desktop chip would,
+
+21
+00:01:36,400 --> 00:01:39,080
+but you'd be wrong about that.
+
+22
+00:01:39,080 --> 00:01:45,740
+The 16-core Threadripper 1950X workstation that I use to type this script is slow as balls,
+
+23
+00:01:46,260 --> 00:01:48,340
+and I have never once used all the cores.
+
+24
+00:01:48,820 --> 00:01:52,860
+I desperately want more IPC and faster memory.
+
+25
+00:01:53,420 --> 00:01:58,000
+I'd happily trade for a 5800X or even a 5600X and some fast memory.
+
+26
+00:01:58,000 --> 00:02:03,000
+I'm not even using more PCI Express lanes than a modern Ryzen desktop can handle.
+
+27
+00:02:03,580 --> 00:02:04,380
+And I'm Anthony!
+

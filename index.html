@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽上传文件</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            background-color: #ffffff; /* 白色背景 */
+        }
+        #dropZone {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #666;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: border-color 0.3s, color 0.3s;
+        }
+        #dropZone.active {
+            border-color: #007bff;
+            color: #007bff;
+        }
+        #dropZone.uploaded {
+            border-color: #28a745;
+            color: #28a745;
+            cursor: default;
+        }
+        #runButton, #downloadButton {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ccc; /* 灰色背景 */
+            color: #666;
+            border: none;
+            border-radius: 5px;
+        }
+        #runButton.enabled, #downloadButton.enabled {
+            background-color: #007bff; /* 蓝色背景 */
+            color: white;
+        }
+        #runButton:disabled, #downloadButton:disabled {
+            cursor: not-allowed;
+        }
+        #outputBox {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 20px auto;
+            padding: 10px;
+            overflow-y: auto;
+            font-family: monospace; /* 使用等宽字体 */
+            white-space: pre-wrap; /* 保留换行符 */
+            resize: none; /* 禁止调整大小 */
+        }
+    </style>
+</head>
+<body>
+    <div id="dropZone">将文件拖拽到这里</div>
+    <button id="runButton" disabled>执行Python脚本</button>
+    <textarea id="outputBox" readonly></textarea>
+    <button id="downloadButton" disabled>下载生成的文件</button>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const runButton = document.getElementById('runButton');
+        const outputBox = document.getElementById('outputBox');
+        const downloadButton = document.getElementById('downloadButton');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('active');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('active');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('active');
+            const files = e.dataTransfer.files;
+
+            if (files.length === 0) {
+                alert("没有文件被拖拽！");
+                return;
+            }
+
+            const file = files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            dropZone.textContent = "正在上传文件...";
+            dropZone.classList.add('active');
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                dropZone.textContent = data;
+                dropZone.classList.remove('active');
+                dropZone.classList.add('uploaded');
+                runButton.disabled = false; // 启用执行脚本按钮
+                runButton.classList.add('enabled'); // 添加启用样式
+            })
+            .catch(error => {
+                dropZone.textContent = "上传失败，请重试！";
+                dropZone.classList.remove('active');
+                console.error('Error:', error);
+            });
+        });
+
+        runButton.addEventListener('click', () => {
+            runButton.disabled = true; // 禁用按钮
+            runButton.classList.remove('enabled'); // 移除启用样式
+            downloadButton.disabled = true; // 禁用下载按钮
+            downloadButton.classList.remove('enabled'); // 移除启用样式
+            outputBox.value = "正在执行脚本，请稍候...";
+
+            fetch('/run-python', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    outputBox.value = data.fileContent; // 显示文件内容
+                    downloadButton.disabled = false; // 启用下载按钮
+                    downloadButton.classList.add('enabled'); // 添加启用样式
+                    downloadButton.href = "./converted/cv.srt"; // 直接设置为cv.srt文件路径
+                    downloadButton.download = "./converted/cv.srt"; // 设置下载文件名
+                } else {
+                    outputBox.value = "脚本执行失败：" + data.error;
+                    alert("Python脚本执行失败：" + data.error);
+                }
+            })
+            .catch(error => {
+                outputBox.value = "脚本执行失败，请检查后端日志。";
+                alert("执行Python脚本失败！");
+                console.error('Error:', error);
+            });
+        });
+        // 确保下载按钮点击后触发下载
+        downloadButton.addEventListener('click', () => {
+            if (!downloadButton.disabled) {
+                const downloadUrl = "/converted/cv.srt";
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = "cv.srt";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        });
+    </script>
+</body>
+</html>
