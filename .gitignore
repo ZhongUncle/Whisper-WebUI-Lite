@@ -5,5 +5,5 @@
 *.toc
 *.bbl
 *.blg
-uploads/*
-converted/*
+cv.srt
+up_file
