@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>拖拽上传文件</title>
+    <title>Drag and Drop File Upload</title>
     <style>
         body {
             display: flex;
@@ -14,7 +14,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             height: 100vh;
-            background-color: #ffffff; /* 白色背景 */
+            background-color: #ffffff; /* White background */
         }
         #dropZone {
             width: 300px;
@@ -44,13 +44,13 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #ccc; /* 灰色背景 */
+            background-color: #ccc; /* Gray background */
             color: #666;
             border: none;
             border-radius: 5px;
         }
         #runButton.enabled, #downloadButton.enabled {
-            background-color: #007bff; /* 蓝色背景 */
+            background-color: #007bff; /* Blue background */
             color: white;
         }
         #runButton:disabled, #downloadButton:disabled {
@@ -63,17 +63,17 @@
             margin: 20px auto;
             padding: 10px;
             overflow-y: auto;
-            font-family: monospace; /* 使用等宽字体 */
-            white-space: pre-wrap; /* 保留换行符 */
-            resize: none; /* 禁止调整大小 */
+            font-family: monospace; /* Use monospaced font */
+            white-space: pre-wrap; /* Preserve newlines */
+            resize: none; /* Disable resizing */
         }
     </style>
 </head>
 <body>
-    <div id="dropZone">将文件拖拽到这里</div>
-    <button id="runButton" disabled>执行Python脚本</button>
+    <div id="dropZone">Drag and drop file here</div>
+    <button id="runButton" disabled>Run Python Script</button>
     <textarea id="outputBox" readonly></textarea>
-    <button id="downloadButton" disabled>下载生成的文件</button>
+    <button id="downloadButton" disabled>Download Generated File</button>
 
     <script>
         const dropZone = document.getElementById('dropZone');
@@ -96,7 +96,7 @@
             const files = e.dataTransfer.files;
 
             if (files.length === 0) {
-                alert("没有文件被拖拽！");
+                alert("No file was dragged!");
                 return;
             }
 
@@ -104,7 +104,7 @@
             const formData = new FormData();
             formData.append('file', file);
 
-            dropZone.textContent = "正在上传文件...";
+            dropZone.textContent = "Uploading file...";
             dropZone.classList.add('active');
 
             fetch('/upload', {
@@ -116,22 +116,22 @@
                 dropZone.textContent = data;
                 dropZone.classList.remove('active');
                 dropZone.classList.add('uploaded');
-                runButton.disabled = false; // 启用执行脚本按钮
-                runButton.classList.add('enabled'); // 添加启用样式
+                runButton.disabled = false; // Enable the script execution button
+                runButton.classList.add('enabled'); // Add enabled style
             })
             .catch(error => {
-                dropZone.textContent = "上传失败，请重试！";
+                dropZone.textContent = "Upload failed, please try again!";
                 dropZone.classList.remove('active');
                 console.error('Error:', error);
             });
         });
 
         runButton.addEventListener('click', () => {
-            runButton.disabled = true; // 禁用按钮
-            runButton.classList.remove('enabled'); // 移除启用样式
-            downloadButton.disabled = true; // 禁用下载按钮
-            downloadButton.classList.remove('enabled'); // 移除启用样式
-            outputBox.value = "正在执行脚本，请稍候...";
+            runButton.disabled = true; // Disable button
+            runButton.classList.remove('enabled'); // Remove enabled style
+            downloadButton.disabled = true; // Disable download button
+            downloadButton.classList.remove('enabled'); // Remove enabled style
+            outputBox.value = "Running script, please wait...";
 
             fetch('/run-python', {
                 method: 'POST'
@@ -139,23 +139,23 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    outputBox.value = data.fileContent; // 显示文件内容
-                    downloadButton.disabled = false; // 启用下载按钮
-                    downloadButton.classList.add('enabled'); // 添加启用样式
-                    downloadButton.href = "./converted/cv.srt"; // 直接设置为cv.srt文件路径
-                    downloadButton.download = "./converted/cv.srt"; // 设置下载文件名
+                    outputBox.value = data.fileContent; // Display file content
+                    downloadButton.disabled = false; // Enable download button
+                    downloadButton.classList.add('enabled'); // Add enabled style
+                    downloadButton.href = "./converted/cv.srt"; // Set to cv.srt file path
+                    downloadButton.download = "./converted/cv.srt"; // Set download file name
                 } else {
-                    outputBox.value = "脚本执行失败：" + data.error;
-                    alert("Python脚本执行失败：" + data.error);
+                    outputBox.value = "Script execution failed: " + data.error;
+                    alert("Python script execution failed: " + data.error);
                 }
             })
             .catch(error => {
-                outputBox.value = "脚本执行失败，请检查后端日志。";
-                alert("执行Python脚本失败！");
+                outputBox.value = "Script execution failed, please check backend logs.";
+                alert("Python script execution failed!");
                 console.error('Error:', error);
             });
         });
-        // 确保下载按钮点击后触发下载
+        // Ensure the download button triggers a download
         downloadButton.addEventListener('click', () => {
             if (!downloadButton.disabled) {
                 const downloadUrl = "/converted/cv.srt";

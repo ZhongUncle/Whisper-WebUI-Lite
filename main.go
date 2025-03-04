@@ -38,7 +38,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// 1GB max upload size
-	if err := r.ParseMultipartForm(1 << 30); err != nil { 
+	if err := r.ParseMultipartForm(1 << 30); err != nil {
 		http.Error(w, "Failed to parse form", http.StatusBadRequest)
 		return
 	}
@@ -62,7 +62,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "文件已上传成功！")
+	fmt.Fprintf(w, "File uploaded successfully!")
 }
 
 // runPython executes the Python script ca.py and returns the content of the generated file
