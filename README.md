@@ -23,7 +23,7 @@ go run main.go
 
 Now you can use it in browser, link is [http://169.254.2.7:8080/](http://169.254.2.7:8080/):
 
-![](./imgs/usage.mov)
+./imgs/usage.mov
 
 Yes, you can directly use video to convert.
 
