@@ -8,6 +8,8 @@ This is still in developing. So it may have some bugs or issues. If you find one
 I want to develop a simple tool, no any useless animation, so it looks like not cool.
 
 ## Usage
+You can delay it in another device.
+
 You need install FFMPEG and Whisper first:
 
 ```
