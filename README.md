@@ -23,7 +23,7 @@ go run main.go
 
 Now you can use it in browser, link is [http://169.254.2.7:8080/](http://169.254.2.7:8080/):
 
-./imgs/usage.mov
+https://github.com/user-attachments/assets/b2012347-3ba6-4ccb-b21b-d161ea36c8c4
 
 Yes, you can directly use video to convert.
 
