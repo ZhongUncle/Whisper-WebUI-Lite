@@ -16,7 +16,7 @@ func main() {
 	http.HandleFunc("/run-python", runPython)
 	http.HandleFunc("/converted/", serveConvertedFiles)
 
-	fmt.Println("Server started at http://localhost:8080")
+	fmt.Println("Server started at http://<IP-Address>:8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		fmt.Println("Failed to start server:", err)
 	}

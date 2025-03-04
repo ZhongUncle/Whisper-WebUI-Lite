@@ -23,7 +23,7 @@ And you can use below command to run service:
 go run main.go
 ```
 
-Now you can use it in browser, link is [http://169.254.2.7:8080/](http://169.254.2.7:8080/):
+Now you can use it in browser, link is http://localhost:8080, or `http://<IP-Address>:8080` when you run it in other device:
 
 https://github.com/user-attachments/assets/b2012347-3ba6-4ccb-b21b-d161ea36c8c4
 
@@ -36,6 +36,8 @@ If you want to upload new video/audio, please refresh page.
 - add menus to output more format subtitles/text.
 - develop REST APIs.
 - fix Performance Issues.
+- add copy button.
+- add more informations in log, such as start time....
 
 ## Performance Issues
 Now I use [Whisper](https://github.com/openai/whisper). it is python script, so every time execution will reload model. It is bad for performance.
